@@ -159,18 +159,6 @@ def output_to_cv2(output):
     image = cv2.cvtColor(np.asarray(image), cv2.COLOR_RGB2BGR) 
     return image
 
-# Replace face
-
-def replace_face(ROIs, styled_face_masks,orig_face, faces_shapes, original_image=cv_image):
-    cv_image_copy = np.copy(cv_image)
-    for roi, face, face_shape, orig_face in zip(ROIs, styled_face_masks, faces_shapes, orig_face):
-        (startY, endY, startX, endX) = roi
-        styled_face = cv2.resize(face, dsize=(face_shape[1],face_shape[0]))
-        orig_face = cv2.resize(orig_face, dsize=(face_shape[1], face_shape[0]))
-        # Overlay mask with original
-        dst = np.where(styled_face==0, orig_face, styled_face)
-        cv_image_copy[startY:endY, startX:endX] = dst
-    return cv_image_copy
 
 # Start computation button and computation
 computation_started = False
