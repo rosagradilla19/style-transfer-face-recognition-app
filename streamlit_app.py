@@ -172,8 +172,7 @@ def replace_face(ROIs, styled_face_masks,orig_face, faces_shapes, original_image
         cv_image_copy[startY:endY, startX:endX] = dst
     return cv_image_copy
 
-#st.write(boxes_orig)
-#st.write(boxes)
+# Start computation button and computation
 computation_started = False
 if st.button('Start computation'):
      computation_started = True
@@ -199,10 +198,7 @@ def segment(net, img,  show_orig=False, dev='cpu'):
     the network, converts output into a 2D image with is then 
     converted to a binary mask where 0=not-person 1=person
     """
-    #if show_orig: plt.imshow(img); plt.axis('off'); plt.show()
-    # Comment the Resize and CenterCrop for better inference results
-    trf = T.Compose([#T.Resize(size), 
-                    #T.CenterCrop(224), 
+    trf = T.Compose([
                     T.ToTensor(), 
                     T.Normalize(mean = [0.485, 0.456, 0.406], 
                                 std = [0.229, 0.224, 0.225])])
@@ -243,8 +239,6 @@ if computation_started:
     mask2 = cv2.resize(mask2, size)
 
     output_image = compute_output(mask=mask2, ROIs=ROIs)
-
-    #output_image = replace_face(ROIs=ROIs, styled_face_masks=img_mask_list, faces_shapes=faces_shapes, orig_face=faces) # (0-255)
 
 # Display output
     st.image(output_image,  use_column_width=True, channels='BGR')
