@@ -223,27 +223,3 @@ def expand_face_rect2(boxes, expander):
         boxes_list.append(box)
     return np.array(boxes_list)
 
-"""
-############ FOREGROUND EXTRACTION #############
-     orig_face = faces[0]
-     styled_face = image_normalized.copy()
-
-     mask = np.zeros(orig_face.shape[:2], np.uint8)
-
-     bgdModel = np.zeros((1,65), np.float64)
-     fgdModel = np.zeros((1,65), np.float64)
-     rect = boxes
-
-     cv2.grabCut(orig_face, mask, rect, bgdModel, fgdModel, 8, cv2.GC_INIT_WITH_RECT)
-    # pixels 0 and 2 are background
-     mask2 = np.where((mask==2)|(mask==0), 0, 1).astype('uint8')
-     mask2 = cv2.resize(mask2, styled_face.shape[:2])
-
-     img_mask = styled_face*mask2[:,:,np.newaxis]
-
-     img_mask_list = list()
-     img_mask_list.append(img_mask)
-
-     
-     output_image = replace_face(ROIs=ROIs, styled_face_masks=img_mask_list, faces_shapes=faces_shapes, orig_face=faces) # (0-255)
-"""
